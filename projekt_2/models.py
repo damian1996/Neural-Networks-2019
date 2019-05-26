@@ -113,7 +113,6 @@ def load_train(load_repr=load_log_mel):
 def save_predictions(preds):
     with open('sampleSubmission.csv', 'r') as file:
         submission_text = file.read().split()
-        print(submission_text)
         header = submission_text[0]
         lines = submission_text[1:]
 
@@ -166,7 +165,6 @@ class SimpleCNN(torch.nn.Module):
 class CNN_Wrapper:
     
     def __init__(self, idx, pretrained, path):
-        print(idx, pretrained, path)
         # Should I set another seed in each model? It is needed? Probably not
         self.idx = idx
         self.clf = SimpleCNN()
@@ -176,7 +174,6 @@ class CNN_Wrapper:
         self.serialize_path = path if path else f'saved_model/{self.idx}.pkl'
         self.batch_size = 64
         self.pretrained = pretrained
-        print(self.idx, self.pretrained)
     
     def build_loaders(self, X, y):
         split_point = int(len(X) * 0.8)
@@ -283,7 +280,6 @@ class CNN_Wrapper:
 
 class VotingClassifier:
     def __init__(self, models):
-        # rozwazyc tu random forest, gradient boosty i ważenie
         self.models = models
         self.models_cnt = len(models)
         
